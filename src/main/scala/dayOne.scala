@@ -3,23 +3,23 @@ package com.tcsw.aoc
 class dayOne
 
 val exampleSource = "src/main/resources/1/example_input.txt"
-val step1Source = "src/main/resources/1/step1.txt"
+val actualSource = "src/main/resources/1/actual_input.txt"
 
 def solveDayOne(): Unit =
 
-  print(partOne())
+  val source = scala.io.Source.fromFile(actualSource)
+  val lines = try source.getLines().toList finally source.close()
+  val (leftList, rightList) = getLeftAndRightLists(lines)
+  print(partOne(leftList, rightList))
 
-def partOne() =
-  val (firstList, secondList) = getLeftAndRightLists(readFile(step1Source))
+def partOne(firstList: List[Int], secondList: List[Int]) =
   firstList.sorted
     .zip(secondList.sorted)
     .map((leftNumber, rightNumber) =>  (rightNumber - leftNumber).abs)
     .sum
 
-def readFile(sourceFile: String): List[String] =
-  val source = scala.io.Source.fromFile(sourceFile)
-  val lines = try source.getLines().toList finally source.close()
-  lines
+//def partTwo() =
+  // TODO
 
 def getLeftAndRightLists(lines: List[String]) =
   lines.map { line =>
