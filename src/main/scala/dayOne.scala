@@ -6,17 +6,23 @@ val exampleSource = "src/main/resources/1/example_input.txt"
 val step1Source = "src/main/resources/1/step1.txt"
 
 def solveDayOne(): Unit =
-  val source = scala.io.Source.fromFile(step1Source)
-  val lines = try source.getLines().toList finally source.close()
 
-  val (leftNumbers, rightNumbers) = lines.map { line =>
-    val pair = line.split("\\s+")
-    (pair(0).toInt, pair(1).toInt)
-  }.unzip
+  print(partOne())
 
-  val sumOfDifferences = leftNumbers.sorted
-    .zip(rightNumbers.sorted)
+def partOne() =
+  val (firstList, secondList) = getLeftAndRightLists(readFile(step1Source))
+  firstList.sorted
+    .zip(secondList.sorted)
     .map((leftNumber, rightNumber) =>  (rightNumber - leftNumber).abs)
     .sum
 
-  print(sumOfDifferences)
+def readFile(sourceFile: String): List[String] =
+  val source = scala.io.Source.fromFile(sourceFile)
+  val lines = try source.getLines().toList finally source.close()
+  lines
+
+def getLeftAndRightLists(lines: List[String]) =
+  lines.map { line =>
+    val pair = line.split("\\s+")
+    (pair(0).toInt, pair(1).toInt)
+  }.unzip
