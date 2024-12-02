@@ -10,7 +10,9 @@ def solveDayOne(): Unit =
   val source = scala.io.Source.fromFile(actualSource)
   val lines = try source.getLines().toList finally source.close()
   val (leftList, rightList) = getLeftAndRightLists(lines)
-  print(partOne(leftList, rightList))
+
+  //print(partOne(leftList, rightList))
+  print(partTwo(leftList, rightList))
 
 def partOne(firstList: List[Int], secondList: List[Int]) =
   firstList.sorted
@@ -18,8 +20,11 @@ def partOne(firstList: List[Int], secondList: List[Int]) =
     .map((leftNumber, rightNumber) =>  (rightNumber - leftNumber).abs)
     .sum
 
-//def partTwo() =
-  // TODO
+def partTwo(firstList: List[Int], secondList: List[Int]) =
+  firstList.map { a =>
+    val countInB = secondList.count(_ == a)
+    a * countInB
+  }.sum
 
 def getLeftAndRightLists(lines: List[String]) =
   lines.map { line =>
