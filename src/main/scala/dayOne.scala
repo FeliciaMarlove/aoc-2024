@@ -7,23 +7,16 @@ val step1Source = "src/main/resources/1/step1.txt"
 
 def solveDayOne(): Unit =
   val source = scala.io.Source.fromFile(step1Source)
-  val lines = try source.getLines() mkString "\n" finally source.close()
+  val lines = try source.getLines().toList finally source.close()
 
-  val numbersWithIndexes = lines
-    .filter(line => line.isDigit)
-    .map(_.asDigit)
-    .toList
-    .zipWithIndex
+  val (leftNumbers, rightNumbers) = lines.map { line =>
+    val pair = line.split("\\s+")
+    (pair(0).toInt, pair(1).toInt)
+  }.unzip
 
-  val (leftListWithIndexes, rightListWithIndexes) = numbersWithIndexes
-    .partition((_, index) => index % 2 == 0)
-
-  val leftListOrdered = leftListWithIndexes.map(_._1).sorted
-  val rightListOrdered = rightListWithIndexes.map(_._1).sorted
-
-  val sumOfDifferences = leftListOrdered
-    .zip(rightListOrdered)
-    .map((leftNumber, rightNumber) =>  rightNumber - leftNumber)
+  val sumOfDifferences = leftNumbers.sorted
+    .zip(rightNumbers.sorted)
+    .map((leftNumber, rightNumber) =>  (rightNumber - leftNumber).abs)
     .sum
 
   print(sumOfDifferences)
