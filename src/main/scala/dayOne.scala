@@ -14,19 +14,19 @@ object dayOne {
     //print(partOne(leftList, rightList))
     print(partTwo(leftList, rightList))
 
-  def partOne(firstList: List[Int], secondList: List[Int]) =
+  private def partOne(firstList: List[Int], secondList: List[Int]): Int =
     firstList.sorted
       .zip(secondList.sorted)
       .map((leftNumber, rightNumber) => (rightNumber - leftNumber).abs)
       .sum
 
-  def partTwo(firstList: List[Int], secondList: List[Int]) =
+  private def partTwo(firstList: List[Int], secondList: List[Int]) =
     firstList.map { a =>
       val countInB = secondList.count(_ == a)
       a * countInB
     }.sum
 
-  def getLeftAndRightLists(lines: List[String]) =
+  private def getLeftAndRightLists(lines: List[String]) =
     lines.map { line =>
       val pair = line.split("\\s+")
       (pair(0).toInt, pair(1).toInt)
