@@ -1,9 +1,9 @@
 package com.tcsw.aoc
 
-class dayOne {
+object dayOne {
 
-  val exampleSource = "src/main/resources/1/example_input.txt"
-  val actualSource = "src/main/resources/1/actual_input.txt"
+  private val exampleSource = "src/main/resources/1/example_input.txt"
+  private val actualSource = "src/main/resources/1/actual_input.txt"
 
   def solveDayOne(): Unit =
 
